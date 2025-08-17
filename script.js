@@ -3,27 +3,23 @@ function play(userChoice) {
     let randomIndex = Math.floor(Math.random() * choices.length);
     let computerChoice = choices[randomIndex];
 
-    document.getElementById("result").textContent = "User choice: " + userChoice + " | Computer choice: " + computerChoice;
+    let resultMessage = `
+        <p><strong>You:</strong> ${userChoice}</p>
+        <p><strong>Computer:</strong> ${computerChoice}</p>
+    `;
 
     if (userChoice === computerChoice) {
-        document.getElementById("result").textContent += " -> It's a tie!";
-    } else if (userChoice === "rock") {
-        if (computerChoice === "scissors") {
-            document.getElementById("result").textContent += " -> User wins!";
-        } else {
-            document.getElementById("result").textContent += " -> Computer wins!";
-        }
-    } else if (userChoice === "paper") {
-        if (computerChoice === "rock") {
-            document.getElementById("result").textContent += "-> user wins!";
-        } else {
-            document.getElementById("result").textContent += " -> Computer wins!";
-        }
-    } else if (userChoice === "scissors") {
-        if (computerChoice === "paper") {
-            document.getElementById("result").textContent += " -> User wins!";
-        } else {
-            document.getElementById("result").textContent += " -> Computer wins!";
-        }
+        resultMessage += "<h2 style='color: gray;'>TIE</h2>";
+    } else if (
+        (userChoice === "rock" && computerChoice === "scissors") ||
+        (userChoice === "paper" && computerChoice === "rock") ||
+        (userChoice === "scissors" && computerChoice === "paper")
+    ) {
+        resultMessage += "<h1 style='color: black;'>WINNER</h1>";
+    } else {
+        resultMessage += "<h1 style='color: red;'>LOSE</h1>";
     }
+
+    document.getElementById("result").innerHTML = resultMessage;
 }
+
